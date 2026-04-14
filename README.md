@@ -10,7 +10,7 @@ una suite de pruebas de API con HTTPie.
 
 ---
 
-## Características LAB
+## Características
 
 - CRUD completo de clientes con validación de unicidad de número de cuenta
 - Transferencias con idempotencia por clave UUID — reintentos seguros ante
