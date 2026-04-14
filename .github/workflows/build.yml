@@ -9,16 +9,16 @@ jobs:
   tests:
     name: Unit & Integration Tests
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: 'maven'
+
       - name: Run Tests
         run: |
           cd banco2026v
@@ -32,20 +32,28 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Cache Sonar
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
       - name: Analyze with SonarCloud
         run: |
           cd banco2026v
-          mvn -B verify sonar:sonar \
-          -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }} \
-          -Dsonar.organization=${{ vars.SONAR_ORG }} \
-          -Dsonar.host.url=https://sonarcloud.io
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=apabon03_lab2arq_2026v \
+            -Dsonar.organization=apabon03 \
+            -Dsonar.host.url=https://sonarcloud.io
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   build:
@@ -54,17 +62,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Build JAR
         run: |
           cd banco2026v
           mvn -B package -DskipTests
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: banco2026v-jar
-          path: "**/target/*.jar"
+          path: "banco2026v/target/*.jar"
