@@ -77,7 +77,7 @@ jobs:
           cd banco2026v
           mvn -B package -DskipTests --file pom.xml
 
-      # ✅ NUEVO: Verifica qué JARs generó Maven y cuál es su nombre real
+
       - name: Verify JAR name
         run: |
           echo "=== JARs generados en target/ ==="
@@ -85,14 +85,13 @@ jobs:
           echo "=== Directorio actual ==="
           pwd
 
-      # ✅ NUEVO: Renombra el JAR al nombre esperado por el Dockerfile
-      # Si tu pom.xml ya tiene <finalName>lab22026v</finalName> este paso no hace nada malo
+
       - name: Rename JAR to expected name
         run: |
           JAR=$(ls banco2026v/target/*.jar | grep -v 'original' | head -1)
           echo "JAR encontrado: $JAR"
           cp "$JAR" banco2026v/target/lab22026v.jar
-          echo "✅ Copiado como lab22026v.jar"
+          echo "Copiado como lab22026v.jar"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
