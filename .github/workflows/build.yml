@@ -89,6 +89,6 @@ jobs:
           tags: latest
           registry: docker.io
           dockerfile: banco2026v/Dockerfile
-          directory: banco2026v
+          directory: .
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
