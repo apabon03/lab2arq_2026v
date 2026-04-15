@@ -80,7 +80,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: banco2026v-jar
-          path: banco2026v/target/lab22026v.jar
+          path: target/lab22026v.jar
 
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v6
