@@ -21,7 +21,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          cd banco2026v
+          cd lab2arq_2026v/banco2026v
           mvn -B test
 
   sonar:
@@ -48,7 +48,7 @@ jobs:
 
       - name: Analyze with SonarCloud
         run: |
-          cd banco2026v
+          cd lab2arq_2026v/banco2026v
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
             -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }} \
             -Dsonar.organization=${{ vars.SONAR_ORG }} \
@@ -73,14 +73,14 @@ jobs:
 
       - name: Build JAR
         run: |
-          cd banco2026v
+          cd lab2arq_2026v/banco2026v
           mvn -B package -DskipTests
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: banco2026v-jar
-          path: banco2026v/target/lab22026v.jar
+          path: lab2arq_2026v/banco2026v/target/lab22026v.jar
 
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v6
@@ -88,7 +88,7 @@ jobs:
           image: apabon03/lab22026v
           tags: latest
           registry: docker.io
-          dockerfile: Dockerfile
-          directory: ./banco2026v
+          dockerfile: ./lab2arq_2026v/banco2026v/Dockerfile
+          directory: ./lab2arq_2026v/banco2026v
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
