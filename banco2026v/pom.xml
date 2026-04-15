@@ -168,5 +168,10 @@
 				</executions>
 			</plugin>
 		</plugins>
+
+
+
+	<finalName>gitlab</finalName>
+
 	</build>
 </project>
