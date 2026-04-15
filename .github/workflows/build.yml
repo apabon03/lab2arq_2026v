@@ -88,6 +88,6 @@ jobs:
           image: apabon03/lab22026v
           tags: latest
           registry: docker.io
-          dockerfile: Dockerfile
+          dockerfile: banco2026v/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
